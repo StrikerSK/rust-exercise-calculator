@@ -1,26 +1,39 @@
-use crate::calculator::calculate_used_weight;
-
 mod calculator;
 
 fn main() {
-    println!("Hello user! I can calculate for you 1-RM, N-RM and Training weight!");
-    println!("Which one would you like to calculate?");
+    println!("Hello user! I can calculate for you 1-RM, N-RM and Weight!");
+    println!("Which one would you like to calculate (Max, Reps, Weight)?");
 
-    println!("How many reps done?");
-    let mut reps: i32 = get_input_integer();
-    println!("Scanned reps value: {}", reps);
+    let binding = get_input_string().to_lowercase();
+    let calc_type = binding.as_str();
+    match calc_type {
 
-    println!("How many weight used?");
-    let mut weight: f32 = get_input_float();
-    println!("Scanned weight value: {}", weight);
+        "max" => {
+            println!("Please enter used reps count");
+            let reps = get_input_integer();
+            println!("Please enter used weight");
+            let weight = get_input_float();
+            println!("Your one rep max is: {}", calculator::calculate_1rm(reps, weight));
+        },
 
-    println!("What is your 1RM?");
-    let mut pr: f32 = get_input_float();
-    println!("Scanned pr value: {}", pr);
+        "reps" => {
+            println!("Please enter your PR");
+            let pr = get_input_float();
+            println!("Please enter expected weight");
+            let weight = get_input_float();
+            println!("For weight {} kgs, you should execute: {} reps", weight, calculator::calculate_nrm(pr, weight));
+        },
 
-    println!("Expected 1 rep max weight: {}", calculator::calculate_1rm(reps, weight));
-    println!("Expected reps for {} kgs value: {}", weight, calculator::calculate_nrm(pr, weight));
-    println!("Expected {} rep weight: {}", reps, calculator::calculate_used_weight(pr, reps));
+        "weight" => {
+            println!("Please enter your PR");
+            let pr = get_input_float();
+            println!("Please enter expected reps count");
+            let reps = get_input_integer();
+            println!("Your training weight is: {}", calculator::calculate_used_weight(pr, reps));
+        },
+
+        _ => println!("Sorry, I don't know this calculation type!"),
+    }
 }
 
 fn get_input_string() -> String {
