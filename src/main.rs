@@ -1,5 +1,5 @@
-mod calculator;
 mod inputs;
+mod calculations;
 
 fn main() {
     println!("Hello user! I can calculate for you 1-RM, N-RM and Weight of your exercise!");
@@ -14,7 +14,7 @@ fn main() {
                 let reps = inputs::get_input_integer();
                 println!("Please enter used weight");
                 let weight = inputs::get_input_float();
-                println!("Your one rep max is: {}", calculator::calculate_1rm(reps, weight));
+                println!("Your one rep max is: {}", calculations::wendler::calculate_1rm(reps, weight));
                 break;
             },
 
@@ -23,7 +23,7 @@ fn main() {
                 let pr = inputs::get_input_float();
                 println!("Please enter expected weight");
                 let weight = inputs::get_input_float();
-                println!("For weight {} kgs, you should execute: {} reps", weight, calculator::calculate_nrm(pr, weight));
+                println!("For weight {} kgs, you should execute: {} reps", weight, calculations::wendler::calculate_nrm(pr, weight));
                 break;
             },
 
@@ -32,7 +32,7 @@ fn main() {
                 let pr = inputs::get_input_float();
                 println!("Please enter expected reps count");
                 let reps = inputs::get_input_integer();
-                println!("Your training weight is: {}", calculator::calculate_used_weight(pr, reps));
+                println!("Your training weight is: {}", calculations::wendler::calculate_used_weight(pr, reps));
                 break;
             },
 
